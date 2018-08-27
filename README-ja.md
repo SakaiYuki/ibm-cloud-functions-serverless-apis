@@ -28,7 +28,7 @@ IBM Cloud 上の Node.js ランタイムには、NPM モジュールの組み込
 
 OpenWhisk プログラミングモデルの基本的な理解が必要です。そうでない場合は、アクション、トリガー、ルールの [デモ](https://github.com/IBM/openwhisk-action-trigger-rule) を最初に試みてください。
 
-また、IBM Cloudアカウントを取得し、最新の [OpenWhiskコマンドライン・ツール(`wsk`)](https://github.com/IBM/openwhisk-action-trigger-rule/blob/master/docs/OPENWHISK.md) がインストールされ、PATH に追加されている必要があります。
+また、IBM Cloudアカウントを取得し、最新の [IBM Cloud Functionsコマンドライン・ツール(`ibmcloud fn`)](https://github.com/IBM/openwhisk-action-trigger-rule/blob/master/docs/OPENWHISK.md) がインストールされ、PATH に追加されている必要があります。
 
 この一通り動作するサンプルの代わりに、このサンプルより [より基本的な要素を理解するためのバージョン](https://github.com/IBM/openwhisk-rest-api-trigger) を参考にすることもできます。
 
@@ -129,7 +129,7 @@ client/cat-delete.sh 1
 
 ```bash
 source local.env
-bx wsk package create cat \
+ibmcloud fn package create cat \
   --param "MYSQL_HOSTNAME" $MYSQL_HOSTNAME \
   --param "MYSQL_PORT" $MYSQL_PORT \
   --param "MYSQL_USERNAME" $MYSQL_USERNAME \
@@ -149,20 +149,20 @@ npm install
 zip -rq action.zip *
 ```
 
-次に、OpenWhisk CLI を使用して `action.zip` からアクションを作成 (create) します。
+次に、IBM Cloud Functions CLI を使用して `action.zip` からアクションを作成 (create) します。
 
 ```bash
 # Create
-bx wsk action create cat/cat-post \
+ibmcloud fn action create cat/cat-post \
   --kind nodejs:6 action.zip \
   --web true
 ```
 
-次に、テストする `wsk` CLIを使って手動でアクションを起動 (invoke) します。
+次に、テストする `ibmcloud fn` CLIを使って手動でアクションを起動 (invoke) します。
 
 ```bash
 # Test
-bx wsk action invoke \
+ibmcloud fn action invoke \
   --blocking \
   --param name Tarball \
   --param color Black \
@@ -184,12 +184,12 @@ GET アクションを作成してテストします。
 cd ../../actions/cat-get-action
 npm install
 zip -rq action.zip *
-bx wsk action create cat/cat-get \
+ibmcloud fn action create cat/cat-get \
   --kind nodejs:6 action.zip \
   --web true
 
 # Test
-bx wsk action invoke \
+ibmcloud fn action invoke \
   --blocking \
   --param id 1 \
   cat/cat-get
@@ -206,19 +206,19 @@ PUT アクションを作成してテストします。
 cd ../../actions/cat-put-action
 npm install
 zip -rq action.zip *
-bx wsk action create cat/cat-put \
+ibmcloud fn action create cat/cat-put \
   --kind nodejs:6 action.zip \
   --web true
 
 # Test
-bx wsk action invoke \
+ibmcloud fn action invoke \
   --blocking \
   --param name Tarball \
   --param color Gray \
   --param id 1 \
   cat/cat-put
 
-bx wsk action invoke \
+ibmcloud fn action invoke \
   --blocking \
   --param id 1 \
   cat/cat-get
@@ -235,17 +235,17 @@ DELETE アクションを作成してテストします。
 cd ../../actions/cat-delete-action
 npm install
 zip -rq action.zip *
-bx wsk action create cat/cat-delete \
+ibmcloud fn action create cat/cat-delete \
   --kind nodejs:6 action.zip \
   --web true
 
 # Test
-bx wsk action invoke \
+ibmcloud fn action invoke \
   --blocking \
   --param id 1 \
   cat/cat-delete
 
-bx wsk action invoke \
+ibmcloud fn action invoke \
   --blocking \
   --param id 1 \
   cat/cat-get
@@ -259,10 +259,10 @@ bx wsk action invoke \
 
 ```bash
 # Create
-bx wsk api create -n "Cats API" /v1 /cat post cat/cat-post
-bx wsk api create /v1 /cat put cat/cat-put
-bx wsk api create /v1 /cat get cat/cat-get
-bx wsk api create /v1 /cat delete cat/cat-delete
+ibmcloud fn api create -n "Cats API" /v1 /cat post cat/cat-post
+ibmcloud fn api create /v1 /cat put cat/cat-put
+ibmcloud fn api create /v1 /cat get cat/cat-get
+ibmcloud fn api create /v1 /cat delete cat/cat-delete
 
 # Test
 
@@ -284,12 +284,12 @@ client/cat-delete.sh 1
 APIマッピングを解除し、アクションを削除します。
 
 ```bash
-bx wsk api delete /v1
-bx wsk action delete cat/cat-post
-bx wsk action delete cat/cat-put
-bx wsk action delete cat/cat-get
-bx wsk action delete cat/cat-delete
-bx wsk package delete cat
+ibmcloud fn api delete /v1
+ibmcloud fn action delete cat/cat-post
+ibmcloud fn action delete cat/cat-put
+ibmcloud fn action delete cat/cat-get
+ibmcloud fn action delete cat/cat-delete
+ibmcloud fn package delete cat
 ```
 
 <a name="troubleshooting"></a>
@@ -297,13 +297,13 @@ bx wsk package delete cat
 ## トラブルシューティング
 
 まずは OpenWhisk アクティベーションログでエラーをチェックしてください。
-`bx wsk activation poll` を使用してコマンドラインでログを出力するか、[IBM Cloudの監視コンソール](https://console.ng.bluemix.net/openwhisk/dashboard) で視覚的に細部を掘り下げてください。
+`ibmcloud fn activation poll` を使用してコマンドラインでログを出力するか、[IBM Cloudの監視コンソール](https://console.ng.bluemix.net/openwhisk/dashboard) で視覚的に細部を掘り下げてください。
 
-エラー内容が不明確な場合は、[最新バージョンの `wsk` CLI](https://console.ng.bluemix.net/openwhisk/learn/cli) がインストールされていることを確認してください。
+エラー内容が不明確な場合は、[最新バージョンの IBM Cloud Functions CLI](https://console.ng.bluemix.net/openwhisk/learn/cli) がインストールされていることを確認してください。
 もし数週間以上経過している場合は、アップデートをダウンロードしてください。
 
 ```bash
-bx wsk property get --cliversion
+ibmcloud fn property get --cliversion
 ```
 
 <a name="alternative-deployment-methods"></a>

@@ -22,7 +22,7 @@ Bluemix의 Node.js 런타임은 NPM 모듈의 내장 화이트리스트를 제�
 기본적인 OpenWhisk 프로그래밍 모델에 대한 이해가 필요합니다. 만약 그렇지 않다면, [액션, 트리거 그리고 
 룰에 대한 데모를 먼저 확인 하십시오](https://github.com/IBM/openwhisk-action-trigger-rule).
 
-또한, Bluemix 계정과 최신 버젼의 [OpenWhisk 명령행 도구(`wsk`)를 설치 후  실행 경로(PATH)에 추가해야 합니다](https://github.com/IBM/openwhisk-action-trigger-rule/blob/master/docs/OPENWHISK-ko.md).
+또한, Bluemix 계정과 최신 버젼의 [IBM Cloud Functions 명령행 도구(`ibmcloud fn`)를 설치 후  실행 경로(PATH)에 추가해야 합니다](https://github.com/IBM/openwhisk-action-trigger-rule/blob/master/docs/OPENWHISK-ko.md).
 
 이 엔드-투-엔드 예제에 대한 대안으로서, 이 샘플의 [기본적인 "빌딩 블럭" 버젼](https://github.com/IBM/openwhisk-rest-api-trigger)도 고려해 볼 수 있습니다.
 
@@ -95,7 +95,7 @@ client/cat-delete.sh 1
 
 ```bash
 source local.env
-bx wsk package create cat \
+ibmcloud fn package create cat \
   --param "MYSQL_HOSTNAME" $MYSQL_HOSTNAME \
   --param "MYSQL_PORT" $MYSQL_PORT \
   --param "MYSQL_USERNAME" $MYSQL_USERNAME \
@@ -113,20 +113,20 @@ npm install
 zip -rq action.zip *
 ```
 
-다음으로 `action.zip`으로 부터 액션을 생성하기 위해 OpenWhisk CLI를 사용합니다.
+다음으로 `action.zip`으로 부터 액션을 생성하기 위해 IBM Cloud Functions CLI를 사용합니다.
 
 ```bash
 # 생성
-bx wsk action create cat/cat-post \
+ibmcloud fn action create cat/cat-post \
   --kind nodejs:6 action.zip \
   --web true
 ```
 
-그 다음 테스트를 위해 `wsk` CLI를 이용하여 액션을 수동으로 호출합니다.
+그 다음 테스트를 위해 `ibmcloud fn` CLI를 이용하여 액션을 수동으로 호출합니다.
 
 ```bash
 # 테스트
-bx wsk action invoke \
+ibmcloud fn action invoke \
   --blocking \
   --param name Tarball \
   --param color Black \
@@ -144,12 +144,12 @@ GET, PUT 그리고 DELETE 액션에 대해 위의 생성과 테스트를 반복�
 cd ../../actions/cat-get-action
 npm install
 zip -rq action.zip *
-bx wsk action create cat/cat-get \
+ibmcloud fn action create cat/cat-get \
   --kind nodejs:6 action.zip \
   --web true
 
 # 테스트
-bx wsk action invoke \
+ibmcloud fn action invoke \
   --blocking \
   --param id 1 \
   cat/cat-get
@@ -162,19 +162,19 @@ bx wsk action invoke \
 cd ../../actions/cat-put-action
 npm install
 zip -rq action.zip *
-bx wsk action create cat/cat-put \
+ibmcloud fn action create cat/cat-put \
   --kind nodejs:6 action.zip \
   --web true
 
 # 테스트
-bx wsk action invoke \
+ibmcloud fn action invoke \
   --blocking \
   --param name Tarball \
   --param color Gray \
   --param id 1 \
   cat/cat-put
 
-bx wsk action invoke \
+ibmcloud fn action invoke \
   --blocking \
   --param id 1 \
   cat/cat-get
@@ -187,17 +187,17 @@ bx wsk action invoke \
 cd ../../actions/cat-delete-action
 npm install
 zip -rq action.zip *
-bx wsk action create cat/cat-delete \
+ibmcloud fn action create cat/cat-delete \
   --kind nodejs:6 action.zip \
   --web true
 
 # 테스트
-bx wsk action invoke \
+ibmcloud fn action invoke \
   --blocking \
   --param id 1 \
   cat/cat-delete
 
-bx wsk action invoke \
+ibmcloud fn action invoke \
   --blocking \
   --param id 1 \
   cat/cat-get
@@ -209,10 +209,10 @@ bx wsk action invoke \
 
 ```bash
 # 생성
-bx wsk api create -n "Cats API" /v1 /cat post cat/cat-post
-bx wsk api create /v1 /cat put cat/cat-put
-bx wsk api create /v1 /cat get cat/cat-get
-bx wsk api create /v1 /cat delete cat/cat-delete
+ibmcloud fn api create -n "Cats API" /v1 /cat post cat/cat-post
+ibmcloud fn api create /v1 /cat put cat/cat-put
+ibmcloud fn api create /v1 /cat get cat/cat-get
+ibmcloud fn api create /v1 /cat delete cat/cat-delete
 
 # 테스트
 
@@ -234,22 +234,22 @@ client/cat-delete.sh 1
 모든 API 매핑을 제거하고 액션을 삭제하십시오.
 
 ```bash
-bx wsk api delete /v1
-bx wsk action delete cat/cat-post
-bx wsk action delete cat/cat-put
-bx wsk action delete cat/cat-get
-bx wsk action delete cat/cat-delete
-bx wsk package delete cat
+ibmcloud fn api delete /v1
+ibmcloud fn action delete cat/cat-post
+ibmcloud fn action delete cat/cat-put
+ibmcloud fn action delete cat/cat-get
+ibmcloud fn action delete cat/cat-delete
+ibmcloud fn package delete cat
 ```
 
 ## 문제 해결
 
-가장 먼저 OpenWhisk 활성화 로그에서 오류를 확인 하십시오. 명령창에서 `bx wsk activation poll`을 이용하여 로그 메시지를 확인하거나 [Bluemix의 모니터링 콘솔](https://console.ng.bluemix.net/openwhisk/dashboard)에서 시각적으로 상세정보를 확인해 보십시오.
+가장 먼저 OpenWhisk 활성화 로그에서 오류를 확인 하십시오. 명령창에서 `ibmcloud fn activation poll`을 이용하여 로그 메시지를 확인하거나 [Bluemix의 모니터링 콘솔](https://console.ng.bluemix.net/openwhisk/dashboard)에서 시각적으로 상세정보를 확인해 보십시오.
 
-오류가 즉각적으로 분명하지 않다면, [최신 버젼의 `wsk` CLI](https://console.ng.bluemix.net/openwhisk/learn/cli)가 설치되어 있는지 확인하십시오. 만약 이전 것이라면 다운로드하고 업데이트 하십시오.
+오류가 즉각적으로 분명하지 않다면, [최신 버젼의 IBM Cloud Functions CLI](https://console.ng.bluemix.net/openwhisk/learn/cli)가 설치되어 있는지 확인하십시오. 만약 이전 것이라면 다운로드하고 업데이트 하십시오.
 
 ```bash
-bx wsk property get --cliversion
+ibmcloud fn property get --cliversion
 ```
 
 ## 다른 배포 방법
