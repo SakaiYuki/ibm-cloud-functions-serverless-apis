@@ -26,6 +26,9 @@ Bluemix의 Node.js 런타임은 NPM 모듈의 내장 화이트리스트를 제�
 
 이 엔드-투-엔드 예제에 대한 대안으로서, 이 샘플의 [기본적인 "빌딩 블럭" 버젼](https://github.com/IBM/openwhisk-rest-api-trigger)도 고려해 볼 수 있습니다.
 
+- `npm`
+- `zip`
+
 ## Steps
 
 1. [MySQL 프로비저닝하기](#1-mysql-프로비저닝하기)

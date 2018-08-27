@@ -32,6 +32,9 @@ OpenWhisk プログラミングモデルの基本的な理解が必要です。�
 
 この一通り動作するサンプルの代わりに、このサンプルより [より基本的な要素を理解するためのバージョン](https://github.com/IBM/openwhisk-rest-api-trigger) を参考にすることもできます。
 
+- `npm`
+- `zip`
+
 ## 手順
 
 1. [MySQL の準備](#1-provision-mysql)

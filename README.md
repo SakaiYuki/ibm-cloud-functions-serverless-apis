@@ -25,6 +25,9 @@ Also, you'll need an IBM Cloud account and the latest [IBM Cloud Functions comma
 
 As an alternative to this end-to-end example, you might also consider the more [basic "building block" version](https://github.com/IBM/openwhisk-rest-api-trigger) of this sample.
 
+- `npm`
+- `zip`
+
 ## Steps
 
 1. [Provision MySQL](#1-provision-mysql)
