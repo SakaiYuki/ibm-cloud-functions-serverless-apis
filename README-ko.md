@@ -42,7 +42,7 @@ Bluemix에 로그인 후 [ClearDB](https://console.ng.bluemix.net/catalog/servic
 
 * [Compose](https://console.ng.bluemix.net/catalog/services/compose-for-mysql/)의 경우, Bluemix 콘솔의 "Service Credentials" 탭에서 해당 정보를 확인 합니다.
 
-`template.local.env` 파일을 `local.env`로 이름을 변경하여 복사하고 `MYSQL_HOSTNAME`, `MYSQL_USERNAME`, `MYSQL_PASSWORD` 및 `MYSQL_DATABASE` 을 생성한 MySQL 인스턴스에 대한 정보로 변경합니다.
+`template.local.env` 파일을 `local.env`로 이름을 변경하여 복사하고 `MYSQL_HOSTNAME`, `MYSQL_PORT`, `MYSQL_USERNAME`, `MYSQL_PASSWORD` 및 `MYSQL_DATABASE` 을 생성한 MySQL 인스턴스에 대한 정보로 변경합니다.
 
 ## 2. OpenWhisk 액션 및 매핑하기
 

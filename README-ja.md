@@ -52,7 +52,7 @@ ClearDB には簡単なテストのためのフリーの段階 (tier) があり�
 
 - [Compose for MySQL](https://console.ng.bluemix.net/catalog/services/compose-for-mysql/) の場合は、IBM Cloud コンソールの `Service Credentials` タブから情報を入手してください。
 
-`template.local.env` を `local.env` という名前の新しいファイルにコピーし、MySQL インスタンスの `MYSQL_HOSTNAME`、`MYSQL_USERNAME`、`MYSQL_PASSWORD`、`MYSQL_DATABASE` の値を書き込んでください。
+`template.local.env` を `local.env` という名前の新しいファイルにコピーし、MySQL インスタンスの `MYSQL_HOSTNAME`、`MYSQL_PORT`、`MYSQL_USERNAME`、`MYSQL_PASSWORD`、`MYSQL_DATABASE` の値を書き込んでください。
 
 > 訳者注: 2018年7月現在、ClearDB サービスは利用できないようですが、参考のためにテキストは翻訳します
 
