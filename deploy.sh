@@ -91,6 +91,9 @@ function install() {
   ibmcloud fn api create /v1 /cat DELETE cat/cat-delete
   cd ../..
 
+  echo "Creating table if it does not exist"
+  MYSQL_PWD=$MYSQL_PASSWORD mysql -u $MYSQL_USERNAME -h $MYSQL_HOSTNAME -P $MYSQL_PORT --ssl-mode=REQUIRED $MYSQL_DATABASE -e "CREATE TABLE IF NOT EXISTS \`cats\` (\`id\` INT AUTO_INCREMENT PRIMARY KEY, \`name\` VARCHAR(256) NOT NULL, \`color\` VARCHAR(256) NOT NULL)"
+
   echo -e "Install Complete"
 }
 

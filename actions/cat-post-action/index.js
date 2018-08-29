@@ -42,9 +42,6 @@ function myAction(params) {
       database: params.MYSQL_DATABASE
     }).then(function(conn) {
       connection = conn;
-      console.log('Creating table if it does not exist');
-      return connection.query('CREATE TABLE IF NOT EXISTS `cats` (`id` INT AUTO_INCREMENT PRIMARY KEY, `name` VARCHAR(256) NOT NULL, `color` VARCHAR(256) NOT NULL)');
-    }).then(function() {
       console.log('Inserting the cat');
       var queryText = 'INSERT INTO cats (name, color) VALUES(?, ?)';
       var insert = connection.query(queryText, [params.name, params.color]);
