@@ -18,7 +18,18 @@
 source local.env
 
 function usage() {
-  echo -e "Usage: $0 [--install,--uninstall,--env]"
+  echo -e "Usage: $0 [--login,--install,--uninstall,--env]"
+}
+
+function login() {
+  echo -e "Setting Bluemix credentials and logging in"
+
+  # Edit these to match your Bluemix credentials (needed to provision the API Gateway)
+  ibmcloud login \
+    --u $IBM_CLOUD_USERNAME \
+    --p $IBM_CLOUD_PASSWORD \
+    --o $IBM_CLOUD_USERNAME \
+    --s $IBM_CLOUD_NAMESPACE
 }
 
 function install() {
@@ -28,14 +39,7 @@ function install() {
 
   echo -e "Installing OpenWhisk actions, triggers, and rules for openwhisk-serverless-apis..."
 
-  echo -e "Setting Bluemix credentials and logging in to provision API Gateway"
-
-  # Edit these to match your Bluemix credentials (needed to provision the API Gateway)
-  ibmcloud login \
-    --u $IBM_CLOUD_USERNAME \
-    --p $IBM_CLOUD_PASSWORD \
-    --o $IBM_CLOUD_USERNAME \
-    --s $IBM_CLOUD_NAMESPACE
+  echo -e "Provisioning API Gateway"
 
   echo -e "\n"
 
@@ -119,6 +123,9 @@ function showenv() {
 }
 
 case "$1" in
+"--login" )
+login
+;;
 "--install" )
 install
 ;;

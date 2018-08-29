@@ -51,6 +51,7 @@ Copy `template.local.env` to a new file named `local.env` and update the `MYSQL_
 `deploy.sh` is a convenience script reads the environment variables from `local.env` and creates the OpenWhisk actions and API mappings on your behalf. Later you will run these commands yourself.
 
 ```bash
+./deploy.sh --login
 ./deploy.sh --install
 ```
 
@@ -79,6 +80,7 @@ client/cat-delete.sh 1
 Use `deploy.sh` again to tear down the OpenWhisk actions and mappings. You will recreate them step-by-step in the next section.
 
 ```bash
+./deploy.sh --login
 ./deploy.sh --uninstall
 ```
 
