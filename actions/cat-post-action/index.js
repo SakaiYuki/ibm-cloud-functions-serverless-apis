@@ -49,25 +49,13 @@ function myAction(params) {
       return insert;
     }).then(function(insert) {
       resolve({
-        statusCode: 201,
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: {
           id: insert.insertId
-        }
       });
     }).catch(function(error) {
       if (connection && connection.end) connection.end();
       console.log(error);
       reject({
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        statusCode: 500,
-        body: {
           error: "Error."
-        }
       });
     });
   });

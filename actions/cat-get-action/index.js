@@ -49,35 +49,19 @@ function myAction(params) {
     }).then(function(result) {
       console.log(result);
       if (result[0]) {
-        resolve({
-          statusCode: 200,
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: result[0]
-        });
+        resolve(
+            result[0]
+        );
       } else {
         reject({
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          statusCode: 404,
-          body: {
             error: "Not found."
-          }
         });
       }
     }).catch(function(error) {
       if (connection && connection.end) connection.end();
       console.log(error);
       reject({
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        statusCode: 500,
-        body: {
           error: "Error."
-        }
       });
     });
   });

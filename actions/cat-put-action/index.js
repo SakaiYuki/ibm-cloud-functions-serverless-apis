@@ -49,25 +49,13 @@ function myAction(params) {
       return update;
     }).then(function(update) {
       resolve({
-        statusCode: 200,
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: {
           success: "Cat updated."
-        }
       });
     }).catch(function(error) {
       if (connection && connection.end) connection.end();
       console.log(error);
       reject({
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        statusCode: 500,
-        body: {
           error: "Error."
-        }
       });
     });
   });

@@ -49,25 +49,13 @@ function myAction(params) {
     }).then(function(result) {
       console.log(result);
       resolve({
-        statusCode: 200,
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: {
           success: "Cat deleted."
-        }
       });
     }).catch(function(error) {
       if (connection && connection.end) connection.end();
       console.log(error);
       reject({
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        statusCode: 500,
-        body: {
           error: "Error."
-        }
       });
     });
   });
